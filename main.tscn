@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://4jpjqbklii26"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_towk0"]
+[ext_resource type="PackedScene" uid="uid://2bk4pi07er0o" path="res://console_ui/console_ui.tscn" id="2_pdcow"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_towk0")
+
+[node name="ConsoleUI" parent="." instance=ExtResource("2_pdcow")]
+layout_mode = 1
