@@ -1,8 +1,0 @@
-res://console_ui/console_ui.tscn
-res://main.tscn
-res://addons/console/console.gd
-res://console_ui/console_ui.gd
-res://addons/console/plugin.gd
-res://addons/console/command.gd
-res://console_ui/crt.gdshader
-res://addons/console/commands.gd
