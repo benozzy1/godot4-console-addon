@@ -3,7 +3,9 @@ extends Control
 
 func _ready() -> void:
 	Console.write_line("Welcome!")
-	Console.write_line("This is a fully functioning console example")
+	Console.write_line("This is a fully functioning console example.")
+	Console.write_line("Created by benozzy.")
+	Console.write_line("")
 	
 	Console.register_command(
 		"echo",
