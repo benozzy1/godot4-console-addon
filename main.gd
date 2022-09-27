@@ -37,3 +37,19 @@ func _ready() -> void:
 			get_tree().quit()
 			return OK
 	)
+	Console.register_command(
+		"wait",
+		"Waits for an amount of seconds",
+		func(args: Array = []) -> int:
+			var wait_time: float = 1
+			if args.size() > 0:
+				if args[0].is_valid_float():
+					wait_time = args[0].to_float()
+				else:
+					Console.log_error("Time provided is not a number")
+					return ERR_CANT_RESOLVE
+			Console.log_info("Waiting for %s seconds" % wait_time)
+			await get_tree().create_timer(wait_time).timeout
+			Console.log_ok("Done waiting for %s seconds" % wait_time)
+			return OK
+	)
