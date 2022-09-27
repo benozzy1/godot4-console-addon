@@ -16,14 +16,14 @@ shader_type canvas_item;
 // On Mac there is potentially a bug causing this to not work properly. If that is the case and you want to use the shader as an overlay
 // change all "overlay ? SCREEN_TEXTURE : TEXTURE" to only "SCREEN_TEXTURE" on lines 129-140, and "vec2 uv = overlay ? warp(SCREEN_UV) : warp(UV);"
 // to "vec2 uv = warp(SCREEN_UV);" on line 98.
-uniform bool overlay = false;
+uniform bool overlay = true;
 
-uniform float scanlines_opacity : hint_range(0.0, 1.0) = 0.4;
+uniform float scanlines_opacity : hint_range(0.0, 1.0) = 0.125;
 uniform float scanlines_width : hint_range(0.0, 0.5) = 0.25;
-uniform float grille_opacity : hint_range(0.0, 1.0) = 0.3;
+uniform float grille_opacity : hint_range(0.0, 1.0) = 0.01;
 uniform vec2 resolution = vec2(640.0, 480.0); // Set the number of rows and columns the texture will be divided in. Scanlines and grille will make a square based on these values
 
-uniform bool pixelate = true; // Fill each square ("pixel") with a sampled color, creating a pixel look and a more accurate representation of how a CRT monitor would work.
+uniform bool pixelate = false; // Fill each square ("pixel") with a sampled color, creating a pixel look and a more accurate representation of how a CRT monitor would work.
 
 uniform bool roll = true;
 uniform float roll_speed = 8.0; // Positive values are down, negative are up
@@ -31,16 +31,16 @@ uniform float roll_size : hint_range(0.0, 100.0) = 15.0;
 uniform float roll_variation : hint_range(0.1, 5.0) = 1.8; // This valie is not an exact science. You have to play around with the value to find a look you like. How this works is explained in the code below.
 uniform float distort_intensity : hint_range(0.0, 0.2) = 0.05; // The distortion created by the rolling effect.
 
-uniform float noise_opacity : hint_range(0.0, 1.0) = 0.4;
+uniform float noise_opacity : hint_range(0.0, 1.0) = 0.25;
 uniform float noise_speed = 5.0; // There is a movement in the noise pattern that can be hard to see first. This sets the speed of that movement.
 
-uniform float static_noise_intensity : hint_range(0.0, 1.0) = 0.06;
+uniform float static_noise_intensity : hint_range(0.0, 1.0) = 0.125;
 
-uniform float aberration : hint_range(-1.0, 1.0) = 0.03; // Chromatic aberration, a distortion on each color channel.
+uniform float aberration : hint_range(-1.0, 1.0) = 0.01; // Chromatic aberration, a distortion on each color channel.
 uniform float brightness = 1.4; // When adding scanline gaps and grille the image can get very dark. Brightness tries to compensate for that.
 uniform bool discolor = true; // Add a discolor effect simulating a VHS
 
-uniform float warp_amount :hint_range(0.0, 5.0) = 1.0; // Warp the texture edges simulating the curved glass of a CRT monitor or old TV.
+uniform float warp_amount :hint_range(0.0, 5.0) = 0.5; // Warp the texture edges simulating the curved glass of a CRT monitor or old TV.
 uniform bool clip_warp = false;
 
 uniform float vignette_intensity = 0.4; // Size of the vignette, how far towards the middle it should go.
