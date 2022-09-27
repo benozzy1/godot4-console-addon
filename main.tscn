@@ -13,3 +13,4 @@ grow_vertical = 2
 script = ExtResource("1_towk0")
 
 [node name="ConsoleUI" parent="." instance=ExtResource("2_pdcow")]
+layout_mode = 1

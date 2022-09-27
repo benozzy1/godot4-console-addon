@@ -1,9 +1,9 @@
 extends Node
 
 signal line_added(text: String)
-signal command_registered(command)
-signal command_unregistered(command)
-signal command_executed(command: String, result: int)
+signal command_registered(command_name: String)
+signal command_unregistered(command_name: String)
+signal command_executed(command_name: String, result: int)
 
 const LOG_INFO_PREFIX: String = "[color=dark_gray][INFO][/color]"
 const LOG_OK_PREFIX: String = "[color=green][OK][/color]"

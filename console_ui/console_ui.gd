@@ -43,7 +43,7 @@ func _input(event: InputEvent) -> void:
 func open() -> void:
 	show()
 	$AnimationPlayer.play("open")
-	_line_edit.grab_focus()
+	_line_edit.grab_focus.call_deferred()
 	_line_edit.clear.call_deferred()
 
 
