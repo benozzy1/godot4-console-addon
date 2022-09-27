@@ -11,6 +11,7 @@ var history_index: int = -1: set = set_history_index
 
 func _ready() -> void:
 	Console.line_added.connect(_on_line_added)
+	Console.command_executed.connect(_on_command_executed)
 	Console.register_command(
 		"clear",
 		"Clears the console",
@@ -18,6 +19,7 @@ func _ready() -> void:
 			clear()
 			return OK
 	)
+	_line_edit.text_submitted.connect(_on_text_submitted)
 	
 	open()
 
@@ -83,3 +85,11 @@ func _on_line_added(text: String) -> void:
 	_text_label.text += text
 	await get_tree().create_timer(0.001).timeout
 	_scroll_container.scroll_vertical = _scroll_container.get_v_scroll_bar().max_value
+
+
+func _on_command_executed(command_name: String, result: int) -> void:
+	if command_name == "":
+		return
+	
+	if result == ERR_DOES_NOT_EXIST:
+		Console.log_error("Command not found: %s" % command_name)

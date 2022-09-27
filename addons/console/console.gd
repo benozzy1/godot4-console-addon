@@ -1,17 +1,16 @@
 extends Node
 
 signal line_added(text: String)
+signal command_registered(command)
+signal command_unregistered(command)
+signal command_executed(command: String, result: int)
 
 const LOG_INFO_PREFIX: String = "[color=dark_gray][INFO][/color]"
 const LOG_OK_PREFIX: String = "[color=green][OK][/color]"
 const LOG_WARN_PREFIX: String = "[color=yellow][WARN][/color]"
 const LOG_ERROR_PREFIX: String = "[color=red][ERROR][/color]"
 
-@onready var commands: Commands = Commands.new()
-
-
-func _ready() -> void:
-	commands.command_executed.connect(_on_command_executed)
+var commands: Dictionary = {}
 
 
 func write(text: String) -> void:
@@ -38,29 +37,44 @@ func log_error(text: String) -> void:
 	write_line("%s %s" % [LOG_ERROR_PREFIX, text])
 
 
-func register_command(command: String, description: String, callable: Callable) -> void:
-	commands.register(command, description, callable)
+func register_command(command_name: String, description: String, callable: Callable) -> void:
+	commands[command_name] = Command.new(description, callable)
+	command_registered.emit(command_name)
 
 
-func unregister_command(command: String) -> void:
-	commands.unregister(command)
+func unregister_command(command_name: String) -> void:
+	if commands.has(command_name):
+		commands.erase(command_name)
+		command_unregistered.emit(command_name)
 
 
-func execute_command(command: String) -> int:
-	return await commands.execute(command)
+func execute_command(command_name: String) -> int:
+	var split_string: PackedStringArray = command_name.strip_edges().split(" ")
+	var command: String = split_string[0].to_lower()
+	var args: Array = split_string.remove_at(0)
+	
+	if command == "":
+		return ERR_DOES_NOT_EXIST
+	
+	var err: int = OK
+	if not has_command(command):
+		printerr("Command not found: %s" % command)
+		err = ERR_DOES_NOT_EXIST
+	else:
+		err = await get_command(command).callable.call(args)
+	command_executed.emit(command, err)
+	return err
 
 
-func get_command(command: String) -> Command:
-	return commands.get_command(command)
+func has_command(command_name: String) -> bool:
+	return commands.has(command_name)
+
+
+func get_command(command_name: String) -> Command:
+	return commands[command_name]
 
 
 func get_commands() -> Array[String]:
-	return commands.get_commands()
-
-
-func _on_command_executed(command: String, result: int) -> void:
-	if command == "":
-		return
-	
-	if result == ERR_DOES_NOT_EXIST:
-		log_error("Command not found: %s" % command)
+	var keys: Array[String] = commands.keys()
+	keys.sort()
+	return keys

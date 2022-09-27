@@ -13,15 +13,9 @@ _global_script_classes=[{
 "class": &"Command",
 "language": &"GDScript",
 "path": "res://addons/console/command.gd"
-}, {
-"base": "Node",
-"class": &"Commands",
-"language": &"GDScript",
-"path": "res://addons/console/commands.gd"
 }]
 _global_script_class_icons={
-"Command": "",
-"Commands": ""
+"Command": ""
 }
 
 [application]

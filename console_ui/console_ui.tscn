@@ -503,5 +503,3 @@ mouse_filter = 2
 libraries = {
 "": SubResource("AnimationLibrary_12aee")
 }
-
-[connection signal="text_submitted" from="CanvasLayer/Control/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_text_submitted"]
