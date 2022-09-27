@@ -68,17 +68,22 @@ func set_history_index(value: int) -> void:
 
 
 func _on_text_submitted(new_text: String) -> void:
-	Console.write_line(_prefix_label.text + new_text)
+	if _prefix_label.visible:
+		Console.write_line(_prefix_label.text + new_text)
+	else:
+		Console.write_line(new_text)
 	_line_edit.clear()
 	
-	if new_text == "":
+	if new_text == "" or not _prefix_label.visible:
 		return
 	
 	if history.has(new_text):
 		history.erase(new_text)
 	history.push_front(new_text)
 	history_index = -1
+	_prefix_label.hide()
 	await Console.execute_command(new_text.strip_edges())
+	_prefix_label.show()
 
 
 func _on_line_added(text: String) -> void:
