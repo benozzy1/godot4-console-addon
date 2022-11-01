@@ -12,27 +12,27 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1fhs5"]
 shader = ExtResource("3_1b6j6")
-shader_parameter/warp_amount = 0.5
-shader_parameter/vignette_opacity = 0.5
-shader_parameter/vignette_intensity = 0.4
-shader_parameter/static_noise_intensity = 0.125
-shader_parameter/scanlines_width = 0.25
-shader_parameter/scanlines_opacity = 0.125
-shader_parameter/roll_variation = 1.8
-shader_parameter/roll_speed = 8.0
-shader_parameter/roll_size = 15.0
-shader_parameter/roll = true
-shader_parameter/resolution = Vector2(640, 480)
-shader_parameter/pixelate = false
-shader_parameter/overlay = true
-shader_parameter/noise_speed = 5.0
-shader_parameter/noise_opacity = 0.25
-shader_parameter/grille_opacity = 0.01
-shader_parameter/distort_intensity = 0.05
-shader_parameter/discolor = true
-shader_parameter/clip_warp = false
-shader_parameter/brightness = 1.4
 shader_parameter/aberration = 0.01
+shader_parameter/brightness = 1.4
+shader_parameter/clip_warp = false
+shader_parameter/discolor = true
+shader_parameter/distort_intensity = 0.05
+shader_parameter/grille_opacity = 0.01
+shader_parameter/noise_opacity = 0.25
+shader_parameter/noise_speed = 5.0
+shader_parameter/overlay = true
+shader_parameter/pixelate = false
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/roll = true
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/scanlines_opacity = 0.125
+shader_parameter/scanlines_width = 0.25
+shader_parameter/static_noise_intensity = 0.125
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+shader_parameter/warp_amount = 0.5
 
 [sub_resource type="Animation" id="Animation_e1m2l"]
 length = 0.001
@@ -400,6 +400,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Backlight" type="ColorRect" parent="CanvasLayer/Control"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -408,6 +409,7 @@ grow_vertical = 2
 color = Color(0.25, 0.25, 0.25, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -420,6 +422,7 @@ theme_override_constants/margin_bottom = 64
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/MarginContainer"]
 unique_name_in_owner = true
+layout_mode = 2
 offset_left = 64.0
 offset_top = 64.0
 offset_right = 1136.0
@@ -427,6 +430,7 @@ offset_bottom = 584.0
 horizontal_scroll_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/ScrollContainer"]
+layout_mode = 2
 offset_right = 1072.0
 offset_bottom = 520.0
 size_flags_horizontal = 3
@@ -435,6 +439,7 @@ theme_override_constants/separation = 0
 
 [node name="TextLabel" type="RichTextLabel" parent="CanvasLayer/Control/MarginContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
+layout_mode = 2
 offset_right = 1072.0
 size_flags_vertical = 4
 theme_override_colors/default_color = Color(0.74902, 0.74902, 0.74902, 1)
@@ -447,12 +452,14 @@ shortcut_keys_enabled = false
 deselect_on_focus_loss_enabled = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
 offset_right = 1072.0
 offset_bottom = 28.0
 theme_override_constants/separation = 0
 
 [node name="PrefixLabel" type="Label" parent="CanvasLayer/Control/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
+layout_mode = 2
 offset_right = 110.0
 offset_bottom = 28.0
 theme_override_colors/font_color = Color(0.74902, 0.74902, 0.74902, 1)
@@ -462,6 +469,7 @@ text = "user@main> "
 
 [node name="LineEdit" type="LineEdit" parent="CanvasLayer/Control/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
+layout_mode = 2
 offset_left = 110.0
 offset_right = 1072.0
 offset_bottom = 25.0
@@ -483,6 +491,7 @@ caret_force_displayed = true
 
 [node name="CRTEffect" type="ColorRect" parent="CanvasLayer/Control"]
 material = SubResource("ShaderMaterial_1fhs5")
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
